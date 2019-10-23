@@ -1,8 +1,12 @@
+/*  Libreria de interrupciones del uC.  */
+
 #include "interruptManager.h"
 #include "rtc.h"
 #include "adc.h"
 #include "pinManager.h"
 #include "eusart.h"
+
+/*  Interrupt_Init  :  Inicializa las interrupciones de los perifericos necesarios  */
 
 void Interrupt_Init(void) {
 
@@ -11,10 +15,11 @@ void Interrupt_Init(void) {
     MotionDetectorIntEnable();
     PullUpDisable();
     RisingEdgeInt();
-    //ADConvertionDoneIntEnable();
     RTCOverflowIntEnable();
     EUSARTReceiveIntEnable();
 }
+
+/*  Interrupt_Handler  :  Rutina de atencion general de interrupciones  */
 
 void __interrupt() Interrupt_Handler(void) {
    

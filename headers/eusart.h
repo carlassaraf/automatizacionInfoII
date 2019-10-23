@@ -1,3 +1,6 @@
+/*  Libreria de EUSART para el uC. Contiene funciones de configuracion y comunicacion serial y algunas funciones relacionadas
+    con el pedido de datos para configurar el RTC   */
+
 #ifndef EUSART_H
 #define EUSART_H
 
@@ -5,17 +8,12 @@
 #include <string.h>
 #include <stdlib.h>
 
+/*  Macros relacionadas con registros y bits pertinentes al periferico EUSART  */
+
 #define EUSARTFramingErr()          RCSTAbits.FERR
 #define EUSARTOverRunErr()          RCSTAbits.OERR
 #define EUSARTTransmitBusy()        !TXSTAbits.TRMT
 
-#define EUSARTTransmitInt()         PIE1bits.TXIE
-#define EUSARTTransmitIntEnable()   PIE1bits.TXIE=1
-#define EUSARTTransmitDone()        PIR1bits.TXIF
-
-#define EUSARTReceiveInt()          PIE1bits.RCIE
-#define EUSARTReceiveIntEnable()    PIE1bits.RCIE=1
-#define EUSARTReceiveDone()         PIR1bits.RCIF
 #define EUSARTClearFlag()           PIR1bits.RCIF=0
 
 #define EUSART_Wait()               while(EUSARTTransmitBusy())
@@ -23,7 +21,9 @@
 #define EUSART_TxBuffer             TXREG
 #define EUSART_RxBuffer             RCREG
 
-char *wordRx;
+char *wordRx;   //Variable global de buffer de datos de entrada
+
+/*  Prototipos de funciones  */
 
 void EUSART_Init(void);
 void EUSART_SendString(char *str);

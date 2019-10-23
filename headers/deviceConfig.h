@@ -1,3 +1,6 @@
+/*  Libreria general de configuracion del uC. Llama a las configuraciones de todos los perifericos y a las distintas
+    maquinas de estado que tiene que atender.  */
+
 #ifndef DEVICE_CONFIG_H
 #define DEVICE_CONFIG_H
 
@@ -80,18 +83,24 @@
 #define true            1
 #define false           0
 
-#define _REFRESH_RTC            0
-#define _TURN_ON_LIGHTS         0
-#define _TURN_OFF_LIGHTS        1
-#define _OPEN_WINDOW            0
-#define _CLOSE_WINDOW           1
-#define _TURN_HEAT_ON           0
-#define _TURN_COLD_ON           1
-#define _TURN_OFF               2
+/*  Todos los estados posibles para las maquinas de estado  */
+
+enum state {
+    _REFRESH_RTC,
+    _TURN_ON_LIGHTS = 0,
+    _TURN_OFF_LIGHTS,
+    _OPEN_WINDOW = 0,
+    _CLOSE_WINDOW,
+    _TURN_HEAT_ON = 0,
+    _TURN_COLD_ON,
+    _TURN_OFF
+}
 
 typedef unsigned char uint8;
 
-typedef struct {                                //Estructura para determinar estados del sistema
+/*  Campo de bits con flags auxiliares para ayudar a controlar los estados  */
+
+typedef struct {                               
     uint16 ConfigRTCRequest         : 1;        //Indicador de que se quiere configurar el RTC
     uint16 RealTimeSet              : 1;        //Indicador de que el RTC fue configurado
     uint16 RTCRefresh               : 1;        //Indicador de que el RTC cambio
@@ -108,9 +117,13 @@ typedef struct {                                //Estructura para determinar est
 
 flag estado;
 
+/*  Punteros a los estados de cada maquina  */
+
 void (*LightsProcess[])(void) = { TurnOnLights, TurnOffLights };
 void (*WindowProcess[])(void) = { OpenWindow, CloseWindow };
 void (*HeatSysProcess[])(void) = { TurnOnHeat, TurnOnCold, TurnOff };
+
+/*  Prototipos de funciones  */
 
 void Oscillator_Init(void);
 void System_Init(void);
@@ -121,4 +134,4 @@ void Lights(void);
 void Window(void);
 void HeatSys(void);
 
-#endif
+#endif /* DEVICE_CONFIG_H */

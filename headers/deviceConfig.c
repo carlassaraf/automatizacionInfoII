@@ -1,9 +1,16 @@
+/*  Libreria general de configuracion del uC. Llama a las configuraciones de todos los perifericos y a las distintas
+    maquinas de estado que tiene que atender.  */
+
 #include "deviceConfig.h"
+
+/*  Oscillator_Init  :  Inicializacion del clock  */
 
 void Oscillator_Init(void) {
     
     OSCCONbits.SCS=0;               //Fuente de clock es el bloque primario definido por CONFIG1H OSC (HS - High Speed Crystal Resonator)
 }
+
+/*  System_Init  :  Llama a las configuraciones de todos los perifericos  */
 
 void System_Init(void) {
 
@@ -17,6 +24,8 @@ void System_Init(void) {
         RTC_WaitingConfiguration();    
 }
 
+/*  CheckLights : Rutina que revisa las variables de control de la maquina de estado que atiende las luces  */
+
 uint8 CheckLights(void) {
     
     if( estado.MotionDetected && !estado.LightsOn ) {
@@ -26,6 +35,9 @@ uint8 CheckLights(void) {
         return _TURN_OFF_LIGHTS;
     }
 }
+
+/*  CheckWindow  :  Rutina que revisa las variables de control de la maquina de estado que atiende las ventanas  */
+
 uint8 CheckWindow(void) {
     
     if( estado.TimeToOpenWindow && !estado.WindowOpened ) {
@@ -35,6 +47,8 @@ uint8 CheckWindow(void) {
         return _CLOSE_WINDOW;
     }
 }
+
+/*  CheckHeatSys  :  Rutina que revisa las variables de control de la maquina de estado que atiende el sistema de frio/calor  */
 
 uint8 CheckHeatSys(void) {
     
@@ -49,15 +63,21 @@ uint8 CheckHeatSys(void) {
     }
 }
 
+/*  Lights  :  Maquina de estado de las luces  */
+
 void Lights(void) {
     
     LightsProcess[CheckLights()];
 }
 
+/*  Window  :  Maquina de estado de las ventanas  */
+
 void Window(void) {
     
     WindowProcess[CheckWindow()];
 }
+
+/*  HeatSys  :  Maquina de estado del sistema de frio/calor  */
 
 void HeatSys(void) {
     
