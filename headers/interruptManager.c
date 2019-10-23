@@ -22,9 +22,6 @@ void __interrupt() Interrupt_Handler(void) {
         if( MotionDetectorInt() && MotionDetectedFlag() ) {             //Si se produjo interrupcion externa      
             INT0_ISR();
         }
-    /*    if( ADConvertionDoneInt() && ADConvertionDone() ) {         //Si se produjo interrupcion por ADC
-            ADC_ISR();
-        }*/
         if( RTCOverflowInt() && RTCOverflow() ) {                       //Si se produjo interrupcion por RTC
             RTC_ISR();
         }

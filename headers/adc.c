@@ -24,14 +24,14 @@ uint16 ADC_Read(unsigned char channel) {
 
 void ADC_RefreshVal(void) {
     
-    enum sensors   { LM50 , SETPOINT };
+    enum sensors   { LM50 , SETPOINT };         //Defino los sensores
     enum sensors sensor;
     
-    for(sensor=LM50 ; sensor<=SETPOINT ; sensor++ ) {
+    for(sensor=LM50 ; sensor<=SETPOINT ; sensor++ ) {       //Hago las lecturas analogicas
         if(sensor==LM50)    tempVal=ADC_Read(sensor);
         else                setpointVal=ADC_Read(sensor);
     }
-    ADC_ConvertToTemperature();
+    ADC_ConvertToTemperature();                 //Llamo a la funcion que se encarga de interpretar las lecturas
 }
 
 void ADC_ConvertToTemperature(void) {

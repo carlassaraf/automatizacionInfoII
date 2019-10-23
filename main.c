@@ -1,25 +1,16 @@
-/*
- * File:   main.c
- * Author: carlassaraf
- *
- * Created on September 16, 2019, 9:05 PM
- */
-
 #include <xc.h>
 #include "headers/deviceConfig.h"
 
 void main(void) {
     
     System_Init();      //Inicializacion de registros
-    
-    void (*func_ptr[])(void) = { RTC_Refresh, TurnOnLights, TurnOffLights, OpenWindow, CloseWindow, TurnOnHeat, TurnOnCold, TurnOff };
-    
-    while(!estado.RealTimeSet) {    //No continuo con el programa hasta que se haya configurado el RTC
-        RTC_WaitingConfiguration();
-    }
+   
+    void (*Process[])(void) = { RTC_Refresh, HeatSys, Window, Lights }; //Puntero que llama a las tres maquinas de estado
     
     while(1) {
-        (*func_ptr[CheckCondition()]);
+        for(uint8 c=0; c<4; c++) {
+            *Process[c];
+        }
     }
     return;
 }

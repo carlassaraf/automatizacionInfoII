@@ -53,29 +53,31 @@ void RTC_ISR(void) {
 
 void RTC_Refresh(void) {
     
-    secs++;
+    if( estado.RTCRefresh ) {
+        secs++;
     
-    if(secs==5) {
-         ADC_RefreshVal();                  //Vuelvo a hacer las lecturas analogicas
-         estado.ConfigRTCRequest=0;         //Borro, si la hubo, la orden de configurar el RTC
-         secs=0;
-    }
-    if(rtc.sec>59) {
-        rtc.sec=0;
-        rtc.min++;
-    }
-    if(rtc.min>59) {
-        rtc.min=0;
-        rtc.hour++;
-    }
-    if(rtc.hour==OpenWindowTime) {
-        estado.TimeToOpenWindow=true;
-    }
-    if(rtc.hour==CloseWindowTime) {
-        estado.TimeToOpenWindow=false;
-    }
-    if(rtc.hour>23) 
-        rtc.hour=false;
+        if(secs==5) {
+            ADC_RefreshVal();                  //Vuelvo a hacer las lecturas analogicas
+            estado.ConfigRTCRequest=0;         //Borro, si la hubo, la orden de configurar el RTC
+            secs=0;
+        }
+        if(rtc.sec>59) {
+            rtc.sec=0;
+            rtc.min++;
+        }
+        if(rtc.min>59) {
+            rtc.min=0;
+            rtc.hour++;
+        }
+        if(rtc.hour==OpenWindowTime) {
+            estado.TimeToOpenWindow=true;
+        }
+        if(rtc.hour==CloseWindowTime) {
+            estado.TimeToOpenWindow=false;
+        }
+        if(rtc.hour>23) 
+            rtc.hour=false;
     
-    estado.RTCRefresh=false;            //Limpio el bit de estado del refresh del RTC
+        estado.RTCRefresh=false;            //Limpio el bit de estado del refresh del RTC
+    }
 }
