@@ -37,7 +37,7 @@ void ADC_RefreshVal(void) {
 void ADC_ConvertToTemperature(void) {
     
     /* Conversiones necesarias para llegar al valor real de temperatura ambiente y setpoint */
-    dT=tempVal-setpointVal;
+    float dT=tempVal-setpointVal;
     if( dT<dTMin ) {                        //Si la temperatura ambiente esta por debajo del setpoint
         estado.TurnOnHeat=1;
         estado.TurnOnCold=0;

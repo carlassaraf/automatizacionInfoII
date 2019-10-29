@@ -20,7 +20,7 @@
 
 typedef unsigned int uint16;
 
-float tempVal, setpointVal, dT;
+float tempVal, setpointVal;
 
 /*  Prototipos de funciones  */
 
