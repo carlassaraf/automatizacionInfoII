@@ -1,4 +1,4 @@
-<img src="/home/carlassaraf/repos/automatizacionInfoII/complementosInforme/Caratula.jpg"  />
+![Caratula](/home/carlassaraf/repos/automatizacionInfoII/complementosInforme/Caratula.jpg)
 
 
 
@@ -25,7 +25,7 @@ Los procesos que se quieren medir y controlar son :
 
 Para resolver esta situación, se plantean tres máquinas de estado actuando intercaladamente que controlen los tres procesos que se mencionan de la siguiente forma:
 
-![](/home/carlassaraf/repos/automatizacionInfoII/complementosInforme/diagramaDeEstados.png)
+![Diagrama de estados](/home/carlassaraf/repos/automatizacionInfoII/complementosInforme/diagramaDeEstados.png)
 
 En el diagrama de estados y transiciones que se observa arriba se muestran, luego de que se pase por el estado de inicialización, las tres máquinas (**Frío/Calor**, **Ventanas** y **Luces**) que están constantemente alternándose en el procesamiento. En el orden que aparecen ahí, cada una observa las variables que las controlan y cambia al estado que le corresponde.
 
